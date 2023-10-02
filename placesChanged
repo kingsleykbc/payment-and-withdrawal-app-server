@@ -1,0 +1,106 @@
+- handleError function
+  - Added response.errors = {}; to the catch mongoose errors line
+  - Wrapped it in another try catch
+
+
+
+// Refund response:
+
+{
+  status: true,
+  message: 'Refund has been queued for processing',
+  data: {
+    transaction: {
+      id: 1265967948,
+      domain: 'test',
+      reference: 'REF_1628863078836',
+      amount: 100000,
+      paid_at: '2021-08-13T13:57:59.000Z',
+      channel: 'card',
+      currency: 'NGN',
+      authorization: [Object],
+      customer: [Object],
+      plan: {},
+      subaccount: [Object],
+      split: {},
+      order_id: null,
+      paidAt: '2021-08-13T13:57:59.000Z',
+      pos_transaction_data: null,
+      source: null
+    },
+    integration: 646532,
+    deducted_amount: 0,
+    channel: null,
+    merchant_note: 'Refund for transaction REF_1628863078836 by chubiekay@yahoo.com',
+    customer_note: 'Refund for transaction REF_1628863078836',
+    status: 'pending',
+    refunded_by: 'chubiekay@yahoo.com',
+    expected_at: '2021-09-28T09:27:38.572Z',
+    currency: 'NGN',
+    domain: 'test',
+    amount: 100000,
+    fully_deducted: false,
+    id: 2498809,
+    createdAt: '2021-09-17T09:27:38.598Z',
+    updatedAt: '2021-09-17T09:27:38.598Z'
+  }
+}
+
+
+Verify response:
+
+{
+  id: 1265967948,
+  domain: 'test',
+  status: 'reversed',
+  reference: 'REF_1628863078836',
+  amount: 100000,
+  message: null,
+  gateway_response: 'Approved',
+  paid_at: '2021-08-13T13:57:59.000Z',
+  created_at: '2021-08-13T13:57:59.000Z',
+  channel: 'card',
+  currency: 'NGN',
+  ip_address: null,
+  metadata: '',
+  log: null,
+  fees: 1500,
+  fees_split: null,
+  authorization: {
+    authorization_code: 'AUTH_en6mf4dw07',
+    bin: '408408',
+    last4: '4081',
+    exp_month: '12',
+    exp_year: '2030',
+    channel: 'card',
+    card_type: 'visa ',
+    bank: 'TEST BANK',
+    country_code: 'NG',
+    brand: 'visa',
+    reusable: true,
+    signature: 'SIG_AV7lWh8tWZpWLL208Loj',
+    account_name: null
+  },
+  customer: {
+    id: 51389957,
+    first_name: '',
+    last_name: '',
+    email: 'superman@yahoo.com',
+    customer_code: 'CUS_dqkdge5il7xtf1o',
+    phone: '',
+    metadata: null,
+    risk_action: 'default',
+    international_format_phone: null
+  },
+  plan: null,
+  split: {},
+  order_id: null,
+  paidAt: '2021-08-13T13:57:59.000Z',
+  createdAt: '2021-08-13T13:57:59.000Z',
+  requested_amount: 100000,
+  pos_transaction_data: null,
+  source: null,
+  transaction_date: '2021-08-13T13:57:59.000Z',
+  plan_object: {},
+  subaccount: {}
+}

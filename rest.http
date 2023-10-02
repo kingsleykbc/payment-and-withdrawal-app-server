@@ -1,0 +1,236 @@
+@refreshToken = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpYXQiOjE2Mjg4NjE5MjksImV4cCI6MTY2MDQxOTUyOSwiYXVkIjoiNjBiYTZmMmZmMWU5NjkyOGI4OTI2M2I0In0.dkHmQvSCWD8FEFzaKaXL1SMIVWDZWfvpHUr8v97Hvhc
+@accessToken = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpYXQiOjE2Mjg5NjU0NDMsImV4cCI6MTYyODk2OTA0MywiYXVkIjoiNjBiYTZmMmZmMWU5NjkyOGI4OTI2M2I0In0.8mc-RhKPo_F3Zo5hkCax3qvKlH7PPlP5wU69H4yknUw
+
+### Refresh Token
+POST http://localhost:8088/auth/refreshToken
+Content-Type: application/json
+
+{
+  "refreshToken": "{{refreshToken}}"
+}
+
+### Main
+GET http://localhost:8088
+
+### Register
+POST http://localhost:8088/auth/register
+Content-Type: application/json
+
+{
+  "email": "superman@yahoo.com",
+  "password": "password"
+}
+
+### Login
+POST http://localhost:8088/auth/login
+Content-Type: application/json
+
+{
+  "email": "xaviourchubie@gmail.com",
+  "password": "password"
+}
+
+
+### Protected route
+GET http://localhost:8088/books
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpYXQiOjE2MjM0NTAzODgsImV4cCI6MTYyMzQ1MjE4OCwiYXVkIjoiNjBiYTZmMmZmMWU5NjkyOGI4OTI2M2I0In0.CIv49g0ep142mNxm0XFNXzYildZgVw1p_pGtsRN9tQw
+
+
+### Logout
+DELETE http://localhost:8088/auth/logout
+
+
+### 404 Error
+GET http://localhost:8088/dsdsds
+
+
+### Quick test
+GET http://localhost:8088/tester
+Content-Type: application/json
+
+{ "name": "Travis"}
+
+
+
+### GET
+GET http://localhost:8088/ads/60e639a65162b13e0873a8db
+
+
+### GET ALL
+GET http://localhost:8088/ads
+
+// sub (friend = mark) = 61fec247c6ed155fcc2b9680
+// id = 61fec247c6ed155fcc2b967e
+
+### TEST POST
+POST http://localhost:8088/ads?jerry
+Content-Type: application/json
+
+{
+  "vendor": "TYT",
+  "favs": ["app", "sdd"],
+  "favs2": ["bat", "sdd"],
+  "subDoc": { "food": "carrot", "calories": 15, "quantity": "59h" },
+  "nesDoc": { "name": "Cardi B", "age": 500, "color": "reD " },
+  "friends":[
+    {"age": 10, "name": "Mark"}, 
+    {"age": 40, "name": "Tyler"},
+    {"age": 10, "name": "Grayson"}
+  ],
+  "sort": 1,
+  "multiSubDoc": [
+    { "food": "yoke", "calories": 15, "quantity": "59h" },
+    { "food": "apple", "calories": 15, "quantity": "59h" },
+    { "food": "gum", "calories": 15, "quantity": "59h" }
+  ],
+  "meta": {"name":"Fred"},
+  "boolField": true,
+  "numberField": null,
+  "uniqueField": "adey",
+  "my life": "Keanu"
+}
+
+### TEST SUB POST
+POST http://localhost:8088/ads/multi/6148584962642a46f4e91e9e
+Content-Type: application/json
+
+{ "calories": 15, "quantity": "59h" }
+
+
+### TEST PUT
+PUT http://localhost:8088/ads/61fec247c6ed155fcc2b967e
+Content-Type: application/json
+
+{
+  "friendID": "61fec247c6ed155fcc2b9680",
+  "withSet": false,
+  "vendor": "STOR"
+}
+
+
+// ------------------------------------------------------------------------------------------------------------------------------------
+//  PAYMENT APP
+// ------------------------------------------------------------------------------------------------------------------------------------
+
+### Validate paystak payment
+GET http://localhost:8088/verifyPayment/REF_1628863078836
+
+### Validate paystak payment
+POST http://localhost:8088/refund/REF_1628863078836
+
+### GET WITHDRAWAL METHOD
+GET http://localhost:8088/customers/withdrawalmethods
+Authorization: Bearer {{accessToken}}
+
+
+### ADD WITHDRAWAL METHOD
+POST http://localhost:8088/customers/withdrawalmethods
+Authorization: Bearer {{accessToken}}
+Content-Type: application/json
+
+{
+  "type": "paystack-recipient_nuban",
+  "details": {
+    "name": "Kingsley",
+    "description": "User refund",
+    "account_number": "0032771520",
+    "bank_code": "044"
+  }
+}
+
+
+### DELETE WITHDRAWAL METHOD
+DELETE http://localhost:8088/customers/withdrawalmethods/60f47582d8ed270c18a87dec
+Authorization: Bearer {{accessToken}}
+
+
+### SAVE PAYMENT METHOD
+POST http://localhost:8088/customers/paymentMethods
+Authorization: Bearer {{accessToken}}
+Content-Type: application/json
+
+{
+  "type": "paystack-authorization_bank",
+  "details": {
+    "reference": "REF_1628123652783"
+  }
+}
+
+
+### GET PAYMENT METHODS
+GET http://localhost:8088/customers/paymentMethods
+Authorization: Bearer {{accessToken}}
+
+
+### DELETE PAYMENT METHOD
+DELETE http://localhost:8088/customers/paymentMethods/6103ab4dd420aa49704c668e
+Authorization: Bearer {{accessToken}}
+
+
+### GET CUSTOMER
+GET http://localhost:8088/customer
+Authorization: Bearer {{accessToken}}
+
+
+### PAY WITH PREVIOUS METHOD
+POST http://localhost:8088/payments/charge
+Authorization: Bearer {{accessToken}}
+Content-Type: application/json
+
+{
+  "amount": "1000",
+  "paymentMethodID": "61167aeb3fc3b72ca419b7dd"
+}
+
+# RETURNS:
+# {
+#   "method": "Paystack charge",
+#   "data": { "reference": "REF_1628862070891" },
+#   "amount": {
+#     "amount": "1000",
+#     "billerFee": 15,
+#     "totalFee": 50,
+#     "appFee": 35,
+#     "amountForBillerCharge": "1000",
+#     "amountAfterFees": 950
+#   }
+# }
+
+
+// ------------------------------------------------------------------------------------------------------------------------------------
+//  ORDERS
+// ------------------------------------------------------------------------------------------------------------------------------------
+
+### Place order
+POST http://localhost:8088/orders
+Authorization: Bearer {{accessToken}}
+Content-Type: application/json
+
+{
+  "payment": {
+    "method": "Paystack charge",
+    "data": {"reference": "REF_1628863390043"},
+    "amount": {
+      "amount": "1000",
+      "billerFee": 15,
+      "totalFee": 50,
+      "appFee": 35,
+      "amountForBillerCharge": "1000",
+      "amountAfterFees": 950
+    }
+  }
+}
+
+### GET ORDERS
+GET http://localhost:8088/orders/details
+Authorization: Bearer {{accessToken}}
+
+
+### LIST PAYSACK BANKS
+GET https://api.paystack.co/bank?country=nigeria
+Authorization: Bearer sk_test_cd6e384c893d2d654bf1e1adc5ac8bcaef397284
+
+
+
+### Test
+GET http://localhost:8088/super
